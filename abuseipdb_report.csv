@@ -1,0 +1,8 @@
+ip,abuseConfidenceScore,threatLevel,countryCode,domain,usageType,isp,hostnames,reverseDNS
+185.107.56.235,0,CLEAN ✅,NL,nforce.com,Data Center/Web Hosting/Transit,Serverhosting,N/A,N/A
+45.155.205.233,0,CLEAN ✅,RU,cloud.ru,Data Center/Web Hosting/Transit,Cloud Technologies LLC trading as Cloud.ru,N/A,N/A
+45.119.212.196,100,HIGH 🔴,VN,longvan.net,Data Center/Web Hosting/Transit,Branch of Long Van System Solution JSC - Hanoi,N/A,N/A
+5.188.62.112,0,CLEAN ✅,RU,pindc.ru,Data Center/Web Hosting/Transit,PIN-NETWORK,N/A,N/A
+91.132.143.9,0,CLEAN ✅,MD,pq.hosting,Data Center/Web Hosting/Transit,WEISS HOSTING GROUP S.R.L.,N/A,N/A
+185.244.25.9,0,CLEAN ✅,DE,freifunk.net,Data Center/Web Hosting/Transit,Freemesh - non-commercial Networks,N/A,N/A
+139.159.247.226,14,LOW 🟢,CN,huawei.com,Data Center/Web Hosting/Transit,"Huawei Public Cloud Service (Huawei Software Technologies Co.,Ltd)",ecs-139-159-247-226.compute.hwclouds-dns.com,ecs-139-159-247-226.compute.hwclouds-dns.com
