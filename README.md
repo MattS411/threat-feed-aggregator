@@ -34,3 +34,12 @@ In the project root, create a file called `.env` and paste:
 
 ```env
 ABUSEIPDB_API_KEY=your_actual_api_key_here
+
+## 🏁 Quick Start
+
+1. Clone the repo and `cd` into the folder  
+2. Run `pip install -r requirements.txt` *(or install packages manually)*
+3. Copy `.env.example` to `.env` and paste your API key  
+4. Add IPs to `ips.txt`  
+5. Run: `python main.py`  
+6. Check the output files!
