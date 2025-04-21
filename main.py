@@ -6,19 +6,26 @@ import socket
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Load .env file
+# Load API key from the .env file
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
-
 API_KEY = os.getenv("ABUSEIPDB_API_KEY")
 
 def reverse_dns(ip):
+    """
+    Attempts to resolve the reverse DNS of a given IP address.
+    Returns the hostname if found, or 'N/A' if not resolvable.
+    """
     try:
         return socket.gethostbyaddr(ip)[0]
     except Exception:
         return "N/A"
 
 def get_threat_level(score):
+    """
+    Categorizes an IP's threat level based on its abuse score.
+    Returns a string with a label and emoji indicator.
+    """
     if score >= 80:
         return "HIGH 🔴"
     elif score >= 40:
@@ -29,6 +36,10 @@ def get_threat_level(score):
         return "CLEAN ✅"
 
 def fetch_abuseipdb_data(ip):
+    """
+    Queries the AbuseIPDB API for information about the given IP address.
+    Returns a dictionary of enriched threat data.
+    """
     url = "https://api.abuseipdb.com/api/v2/check"
     params = {
         "ipAddress": ip,
@@ -61,9 +72,17 @@ def fetch_abuseipdb_data(ip):
         return {}
 
 def main():
+    """
+    Main function that drives the script:
+    - Loads IPs from file
+    - Queries each IP using the API
+    - Applies threat classification
+    - Outputs reports in both CSV and TXT format
+    """
+    # Load IPs from ips.txt file
     with open("ips.txt", "r") as f:
         ip_list = [line.strip() for line in f if line.strip()]
-    
+
     results = []
 
     for ip in ip_list:
@@ -71,13 +90,15 @@ def main():
         result = fetch_abuseipdb_data(ip)
         if result:
             results.append(result)
-        time.sleep(1.5)
+        time.sleep(1.5)  # Respect AbuseIPDB rate limits
 
     if results:
+        # Save results to CSV file
         df = pd.DataFrame(results)
         df.to_csv("abuseipdb_report.csv", index=False)
-        print("✅ Report saved as abuseipdb_report.csv")
+        print("✅ CSV report saved as abuseipdb_report.csv")
 
+        # Save readable text report with detailed info
         with open("abuseipdb_report.txt", "w", encoding="utf-8") as txt_file:
             for result in results:
                 txt_file.write(f"IP: {result['ip']}\n")
@@ -89,10 +110,10 @@ def main():
                 txt_file.write(f"  Hostnames: {result['hostnames']}\n")
                 txt_file.write(f"  Reverse DNS: {result['reverseDNS']}\n")
                 txt_file.write("-" * 40 + "\n")
-        print("📄 Detailed report saved as abuseipdb_report.txt")
+
+        print("📄 Text report saved as abuseipdb_report.txt")
     else:
         print("⚠️ No valid results to save.")
 
 if __name__ == "__main__":
-    main()
-    print("🔚 Script finished.")
+    main()  
